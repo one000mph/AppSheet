@@ -1,5 +1,4 @@
 var express = require('express');
-var Promise = require("bluebird");
 var ids = require("./index.js");
 
 var app = express();
