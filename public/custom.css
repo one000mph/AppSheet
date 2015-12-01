@@ -1,15 +1,10 @@
 .art {
 	position: relative;
-	/*background-color: #808080;*/
-	/*height: 100%;*/
-	/*width: 100%;*/
-	/*margin: 10px;*/
 }
 
 img.artwork {
 	display: block;
 	margin: auto;
-	/*padding: 10px;*/
 }
 
 .col-md-4 {
