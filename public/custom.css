@@ -1,5 +1,7 @@
 .art {
 	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
 img.artwork {
@@ -10,4 +12,15 @@ img.artwork {
 .col-md-4 {
 	min-height: 0px;
 	padding: 0px;
+}
+
+a.showMeta {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+}
+
+div.meta {
+	display: none;
+	margin: auto;
 }

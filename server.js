@@ -14,8 +14,6 @@ var port = 8000;
 app.get('/', function (req, res) {
 	ids.getIds(function (imageIds) {
 		var imageCount = imageIds.length;
-		// console.log('called then', imageIds);
-		console.log('IMAGE IDS:\n', imageCount);
 		res.render('index', {title: 'Home', ids: imageIds});
 	});
 });

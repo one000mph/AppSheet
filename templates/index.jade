@@ -15,10 +15,24 @@ append scripts
 			$.getJSON('https://appsheettest1.azurewebsites.net/sample/art/' + id, 
 			function (data) {
 				var url = data.thumbnailUrl;
+				var formattedData = "";
+				$.each(data, function (key, val) {
+					formattedData = formattedData.concat("<b>", key, "</b>: ", val, "<br>");
+				});
+				$('div.meta'+id).append("<p>" + formattedData + "</p>");
 				$(elClass).attr('data-original', url).css("padding", "10px");
 
 				callback();
 			});
+		};
+
+		var showHideDiv = function showHideDiv(elId) {
+			var sliderEl = "div." + elId;
+			if ($(sliderEl).hasClass("open")) {
+				$(sliderEl).slideUp(200).removeClass("open");
+			} else {
+				$(sliderEl).slideDown(200).addClass("open");
+			}
 		};
 
 		var idsArr = '#{ids}'.split(',');
@@ -46,10 +60,11 @@ block body
 				a.navbar-brand(href='#') AppSheet
 	.container
 		.page-header
-				h1 Art Gallery
+			h1 Art Gallery
+			p.lead
+				| Click images for meta data
 
 		- var imageCount = ids.length
-		- console.log(imageCount)
 		- var imageRows = imageCount/3
 		- var row = 0
 		- var col = 0
@@ -59,9 +74,12 @@ block body
 				while col < 3
 					.col-md-4
 						- var id = ids[index]
-						- var imgClass = "artwork lazy" + id 
+						- var imgClass = "artwork lazy" + id
+						- var metaClass = "meta meta" + id
 						div.art
-							img(class=imgClass)
+							a.showMeta(href="javascript:showHideDiv(\"meta"+id+"\")")
+								img(class=imgClass)
+							div(class=metaClass)
 					- col = col + 1
 					- index = index + 1
 				- col = 0
