@@ -1,5 +1,5 @@
 var express = require('express');
-var ids = require("./index.js");
+var getIds = require("./images.js").getIds;
 
 var app = express();
 
@@ -12,7 +12,7 @@ app.use(express.static('public'));
 var port = 8000;
 
 app.get('/', function (req, res) {
-	ids.getIds(function (imageIds) {
+	getIds(function (imageIds) {
 		var imageCount = imageIds.length;
 		res.render('index', {title: 'Home', ids: imageIds});
 	});

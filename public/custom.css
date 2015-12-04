@@ -1,26 +1,14 @@
-.art {
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-
 img.artwork {
-	display: block;
-	margin: auto;
-}
-
-.col-md-4 {
-	min-height: 0px;
-	padding: 0px;
+	display: inline;
+	position: relative;
+	margin: 0 auto;
 }
 
 a.showMeta {
 	display: inline-block;
-	width: 100%;
-	height: 100%;
 }
 
 div.meta {
 	display: none;
-	margin: auto;
+	margin: 0 auto;
 }

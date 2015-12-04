@@ -9,6 +9,8 @@ append scripts
 	script(src="//code.jquery.com/jquery-1.11.3.min.js")
 	script(src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.js")
 	script(src="//ssorallen.com/jquery-scrollstop/jquery.scrollstop.js")
+	script(src="//cdnjs.cloudflare.com/ajax/libs/jade/1.11.0/runtime.js")
+	script(src="../jade-templates.js")
 	script.
 
 		var retrieveUrl = function retrieveUrl (id, elClass, callback) {
@@ -16,12 +18,15 @@ append scripts
 			function (data) {
 				var url = data.thumbnailUrl;
 				var formattedData = "";
+				console.log(id);
+				// format the meta data
 				$.each(data, function (key, val) {
 					formattedData = formattedData.concat("<b>", key, "</b>: ", val, "<br>");
 				});
 				$('div.meta'+id).append("<p>" + formattedData + "</p>");
+				// adding url to image element
 				$(elClass).attr('data-original', url).css("padding", "10px");
-
+				// callback to load image
 				callback();
 			});
 		};
@@ -29,23 +34,54 @@ append scripts
 		var showHideDiv = function showHideDiv(elId) {
 			var sliderEl = "div." + elId;
 			if ($(sliderEl).hasClass("open")) {
-				$(sliderEl).slideUp(200).removeClass("open");
+				$(sliderEl).slideUp(300).removeClass("open");
 			} else {
-				$(sliderEl).slideDown(200).addClass("open");
+				$(sliderEl).slideDown(300).addClass("open");
 			}
 		};
 
-		var idsArr = '#{ids}'.split(',');
-
-		$.each(idsArr, function (i, id) {
-			var imgClass = i + " lazy";
+		var loadImage = function loadImage (id) {
+			console.log("loadImage", id);
 			retrieveUrl(id, '.lazy'+id, function () {
 				$('img.lazy'+id).show().lazyload({
 					event: "scrollstop",
+					effect: "fadeIn",
 					threshold : 500
 				});
 			});
-		});
+		};
+
+		var loadImages = function loadImages () {
+			var toLoad = idsArr.slice(imageIndex,imageIndex+30);
+			if (toLoad.length > 0) {
+				$('div.images').append(genColumns({ids: toLoad}));
+				$.each(toLoad, function (i, id) {
+					loadImage(id);
+				});
+				imageIndex += 30;
+			}
+		};
+
+		// Called Methods
+
+		var imageIndex = 0;
+		//- var imgCount = 30;
+
+		var idsArr = '#{ids}'.split(',');
+		var idsCount = idsArr.length;
+
+
+		$(function () {
+			loadImages();
+			$('#load').click(function (event) {
+				event.preventDefault();
+				loadImages();
+			})
+		})
+		
+
+		
+
 
 block body
 	- // Fixed navbar
@@ -63,28 +99,27 @@ block body
 			h1 Art Gallery
 			p.lead
 				| Click images for meta data
+		div.images
+		//- - var imageCount = ids.length
+		//- - var imageRows = imageCount/3
+		//- - var row = 0
+		//- - var col = 0
+		//- - var index = 0
+		//- while row < imageRows
+		//- 	.row
+		//- 		while col < 3
+		//- 			.col-md-4
+		//- 				- var id = ids[index]
+		//- 				- var imgClass = "artwork lazy" + id
+		//- 				- var metaClass = "meta meta" + id
+		//- 				div.art
+		//- 					a.showMeta(href="javascript:showHideDiv(\"meta"+id+"\")")
+		//- 						img(class=imgClass)
+		//- 					div(class=metaClass)
+		//- 			- col = col + 1
+		//- 			- index = index + 1
+		//- 		- col = 0
+		//- 	- row += 1
 
-		- var imageCount = ids.length
-		- var imageRows = imageCount/3
-		- var row = 0
-		- var col = 0
-		- var index = 0
-		while row < imageRows
-			.row
-				while col < 3
-					.col-md-4
-						- var id = ids[index]
-						- var imgClass = "artwork lazy" + id
-						- var metaClass = "meta meta" + id
-						div.art
-							a.showMeta(href="javascript:showHideDiv(\"meta"+id+"\")")
-								img(class=imgClass)
-							div(class=metaClass)
-					- col = col + 1
-					- index = index + 1
-				- col = 0
-			- row += 1
-
-			
-
+		a(href="#", id="load") Load More
 
