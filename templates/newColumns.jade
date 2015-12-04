@@ -1,0 +1,20 @@
+- var imageCount = 30 // number of img elements to generate
+- var imageRows = imageCount/3
+- var row = 0
+- var col = 0
+- var index = 0
+while row < imageRows
+	.row
+		while col < 3
+			.col-md-4
+				- var id = ids[index]
+				- var imgClass = "artwork lazy" + id
+				- var metaClass = "meta meta" + id
+				div.art
+					a.showMeta(href="javascript:showHideDiv(\"meta"+id+"\")")
+						img(class=imgClass)
+					div(class=metaClass)
+			- col = col + 1
+			- index = index + 1
+		- col = 0
+	- row += 1
