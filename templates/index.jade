@@ -10,19 +10,92 @@ append scripts
 	script(src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.js")
 	script(src="//rawgit.com/ssorallen/jquery-scrollstop/master/jquery.scrollstop.js")
 	script(src="//cdnjs.cloudflare.com/ajax/libs/jade/1.11.0/runtime.js")
+	script(src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js")
 	script(src="../jade-templates.js")
 	script.
+
+		String.prototype.capitalizeFirstLetter = function() {
+			return this.charAt(0).toUpperCase() + this.slice(1);
+		}
+
+		var boldHeader = function boldHeader (header, val) {
+			return "<b>" + header + "</b>: " + val + "<br>";
+		};
+
+		var deCamelUnderscore = function deCamelUnderscore (val) {
+			return val.replace(/([A-Z])/g, ' $1') // add spaces, replace underscores
+					  .replace(/([_])/g, ' ')
+					  .replace(/^./, function(str){ return str.toUpperCase(); }) // capitalize first char
+		};
 
 		var retrieveUrl = function retrieveUrl (id, elClass, callback) {
 			$.getJSON('https://appsheettest1.azurewebsites.net/sample/art/' + id, 
 			function (data) {
 				var url = data.thumbnailUrl;
 				var formattedData = "";
-				console.log(id);
+				// remove non-essential meta data
+				var displayData = _.omit(data, ['thumbnailUrl',
+												'id',
+												'mm',
+												'thumbnailCopyright',
+												'artistId',
+												'width',
+												'height',
+												'units',
+												'depth',
+												'dateText',
+												'artistRole',
+												'inscription']);
 				// format the meta data
-				$.each(data, function (key, val) {
-					formattedData = formattedData.concat("<b>", key, "</b>: ", val, "<br>");
+				var artAccessionNum, artist, artTitle, artMedium, artCredit,
+				artYear, artAcquisition, artDims, artUrl;
+				$.each(displayData, function (key, val) {
+					key = deCamelUnderscore(key);
+					key = key.capitalizeFirstLetter();
+					console.log(key);
+					switch(key) {
+						case 'Accession number':
+							artAccessionNum = boldHeader(key, val);
+							break;
+						case 'Artist':
+							artist = boldHeader(key, val);
+							break;
+						case 'Title':
+							artTitle = boldHeader(key, val);
+							break;
+						case 'Medium':
+							artMedium = boldHeader(key, val);
+							break;
+						case 'Credit Line':
+							artCredit = boldHeader(key, val);
+							break;
+						case 'Year':
+							artYear = boldHeader(key, val);
+							break;
+						case 'Acquisition Year':
+							artAcquisition = boldHeader(key, val);
+							break;
+						case 'Dimensions':
+							artDims = boldHeader(key, val);
+							break;
+						case 'Url':
+							artUrl = "<b>" + key + "</b>: <a href=\'" + val + "\'>View Image On Original Site</a><br>";
+							console.log("URL", artUrl);
+							break;
+						default:
+							console.log("default");
+					}
 				});
+				formattedData = formattedData.concat(artTitle,
+														 artist,
+														 artMedium,
+														 artYear,
+														 artAcquisition,
+														 artDims,
+														 artAccessionNum,
+														 artCredit,
+														 artUrl);
+				console.log(formattedData);
 				$('div.meta'+id).append("<p>" + formattedData + "</p>");
 				// adding url to image element
 				$(elClass).attr('data-original', url).css("padding", "10px");
@@ -41,7 +114,6 @@ append scripts
 		};
 
 		var loadImage = function loadImage (id) {
-			console.log("loadImage", id);
 			retrieveUrl(id, '.lazy'+id, function () {
 				$('img.lazy'+id).show().lazyload({
 					event: "scrollstop",
@@ -100,26 +172,7 @@ block body
 			p.lead
 				| Click images for meta data
 		div.images
-		//- - var imageCount = ids.length
-		//- - var imageRows = imageCount/3
-		//- - var row = 0
-		//- - var col = 0
-		//- - var index = 0
-		//- while row < imageRows
-		//- 	.row
-		//- 		while col < 3
-		//- 			.col-md-4
-		//- 				- var id = ids[index]
-		//- 				- var imgClass = "artwork lazy" + id
-		//- 				- var metaClass = "meta meta" + id
-		//- 				div.art
-		//- 					a.showMeta(href="javascript:showHideDiv(\"meta"+id+"\")")
-		//- 						img(class=imgClass)
-		//- 					div(class=metaClass)
-		//- 			- col = col + 1
-		//- 			- index = index + 1
-		//- 		- col = 0
-		//- 	- row += 1
+			- // images will be dynamically loaded here
 
-		a(href="#", id="load") Load More
+		a(href="#", id="load") More Images ...
 

@@ -1,7 +1,10 @@
+div.images {
+	margin: 20px;
+}
+
 div.art {
 	text-align: center;
 }
-
 
 img.artwork {
 	display: inline;
@@ -11,10 +14,15 @@ img.artwork {
 
 a.showMeta {
 	display: inline-block;
+	text-decoration: none;
+	color: #333;
 }
 
 div.meta {
+	position: relative;
 	display: none;
 	margin: 0 auto;
 	text-align: left;
+	width: 100%;
+	margin: 10px;
 }
