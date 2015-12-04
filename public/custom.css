@@ -16,4 +16,5 @@ a.showMeta {
 div.meta {
 	display: none;
 	margin: 0 auto;
+	text-align: left;
 }
