@@ -9,7 +9,7 @@ app.set('views', __dirname + '/templates');
 app.set('view engine', 'jade');
 app.use(express.static('public'));
 
-var port = .listen(process.env.PORT || 8000);
+var port = process.env.PORT || 8000;
 
 app.get('/', function (req, res) {
 	getIds(function (imageIds) {
