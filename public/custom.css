@@ -1,3 +1,13 @@
+footer.navbar-fixed-bottom {
+	height: 50px;
+}
+
+div.container-fluid {
+	padding-left: 47%;
+	padding-right: 0px;
+	padding-top: 10px;
+}
+
 div.images {
 	margin: 20px;
 }
@@ -25,4 +35,9 @@ div.meta {
 	text-align: left;
 	width: 100%;
 	margin: 10px;
+}
+
+button.more-images {
+	color: #fff;
+	margin: 0 auto;
 }

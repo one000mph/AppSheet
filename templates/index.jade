@@ -50,6 +50,11 @@ block body
 					span.icon-bar
 					span.icon-bar
 				a.navbar-brand(href='#') AppSheet
+			#navbar.collapse.navbar-collapse
+				ul.nav.navbar-nav
+					li.active
+						a(href='#', onclick='randomize()') Randomize!
+	a(name="top")
 	.container
 		.page-header
 			h1 Art Gallery
@@ -57,7 +62,10 @@ block body
 				| Click images for meta data
 		div.images
 			- // images will be dynamically loaded here
-
-		a(href="#", id="load")
-			h3 More Images ...
+		.row
+			button(type="button", id="load", class="more-images btn btn-secondary btn-lg btn-block")
+				| More Images ...
+	footer.navbar-default.navbar-fixed-bottom
+		.container-fluid
+			a(href="#top") Back To Top
 

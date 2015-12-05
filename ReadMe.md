@@ -10,4 +10,3 @@ Access at localhost:8000
 #### Fun Features
 
 * Randomize
-* Scroll To Top
