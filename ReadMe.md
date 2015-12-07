@@ -19,7 +19,7 @@ Access at localhost:8000 OR go to http://appsheet-photo-gallery.herokuapp.com fo
 
 #### Known Bugs
 
-* Encoding of special characters is not recognized in the .getJSON() method so sometimes you might see a '?' or � character in the meta data.
+* Encoding of special characters is not recognized in the .getJSON() method so sometimes you might see a '?' or � character in the meta data. This could possibly be fixed by using a .ajax() call instead of .getJSON()
 
 ### Design Question
 
