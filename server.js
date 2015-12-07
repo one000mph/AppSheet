@@ -43,7 +43,7 @@ app.get('/', function (req, res) {
 		var imageCount = imageIds.length;
 		// shuffle order before loading
 		var randomIds = shuffle(imageIds);
-		res.render('index', {title: 'Home', ids: randomIds});
+		res.render('index', {title: 'AppSheet Art Galler', ids: randomIds});
 	});
 });
 
