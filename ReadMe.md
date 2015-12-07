@@ -4,17 +4,26 @@
 
 `node server.js`
 
-Access at localhost:8000
+Access at localhost:8000 OR go to http://appsheet-photo-gallery.herokuapp.com for a stable version of the app. Note that the version on herokuapp may not be up-to-date with the latest version on github.
 
 
-#### Fun Features
+#### Features
 
-* Randomize
+* Randomize image order on page reload
+* Jump back to top with sticky footer
+* Click image to show/hide meta data
+* Images load on scrollstop improving UX and decreasing browser load
+* Images are retrieved by a client-side script, minizing initial load time
+* HTML containers for new images are also dynamically generated and loaded
+* Site is responsive to mobile view
 
+#### Known Bugs
 
-### Design Question 1
+* Encoding of special characters is not recognized in the .getJSON() method so sometimes you might see a '?' or � character in the meta data.
 
-How would you improve the UX of Amazon.com? What would you change, and why?
+### Design Question
+
+**How would you improve the UX of Amazon.com? What would you change, and why?**
 
 On the main page I would simplify the menus to contain only 4-6 items. For example "Your Account" and "Your Lists" contains far too many menu items for all of them to be useful. The media items such as Amazon Cloud Drive, Kindle, and Video libraries could fall under some appropriately title "Digital Content" category. The gift menu items under the "Your Lists" menu could also be consolidated into a Registry & Gifts sections. In general good UI design contains simple menus that contain only the most common tasks.
 

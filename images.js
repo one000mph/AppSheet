@@ -1,3 +1,8 @@
+/*
+ * Helper methods for retrieving images
+ * Author: Heather Seaman
+ */
+
 var https = require('https');
 
 var getIds = function getIds (cb) {

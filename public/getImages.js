@@ -1,3 +1,10 @@
+/*
+ * Contains client-side scripts for dynamically loading content
+ * Author: Heather Seaman
+ */
+
+
+////// STRING MANIPULATION HELPERS //////
 String.prototype.capitalizeFirstLetter = function() {
 	return this.charAt(0).toUpperCase() + this.slice(1);
 }
@@ -12,6 +19,8 @@ var deCamelUnderscore = function deCamelUnderscore (val) {
 			  .replace(/^./, function(str){ return str.toUpperCase(); }) // capitalize first char
 };
 
+
+/////// Toggle Meta Data Using JQuery ///////
 var showHideDiv = function showHideDiv(elId) {
 	var sliderEl = "div." + elId;
 	if ($(sliderEl).hasClass("open")) {
@@ -21,6 +30,7 @@ var showHideDiv = function showHideDiv(elId) {
 	}
 };
 
+/////// Retrieve one image by id and assign appropriate classes to elements //////
 var getImage = function getImage (id, elClass, callback) {
 	$.getJSON('https://appsheettest1.azurewebsites.net/sample/art/' + id,
 	function (data) {
@@ -39,7 +49,7 @@ var getImage = function getImage (id, elClass, callback) {
 										'dateText',
 										'artistRole',
 										'inscription']);
-		// format the meta data
+		// format the meta data in a readable format and sensible order
 		var artAccessionNum, artist, artTitle, artMedium, artCredit,
 		artYear, artAcquisition, artDims, artUrl;
 		$.each(displayData, function (key, val) {
@@ -86,14 +96,16 @@ var getImage = function getImage (id, elClass, callback) {
 												 artAccessionNum,
 												 artCredit,
 												 artUrl);
+		// Add meta data to html container
 		$('div.meta'+id).append("<p>" + formattedData + "</p>");
-		// adding url to image element
+		// Add url to image element
 		$(elClass).attr('data-original', url).css("padding", "10px");
 		// callback to load image
 		callback();
 	});
 };
 
+// Use lazyLoad plugin to load images on scrollstop event
 var loadImage = function loadImage (id) {
 	getImage(id, '.lazy'+id, function () {
 		$('img.lazy'+id).show().lazyload({

@@ -1,3 +1,10 @@
+//-
+//-  Bootstrap-jade template for the art gallery page
+//-  Jade template from npm jade-bootstrap module: https://www.npmjs.com/package/jade-bootstrap
+//-  Modified from original source: https://getbootstrap.com/examples/sticky-footer/
+//-  Author: Heather Seaman
+//- 
+
 extends ../node_modules/jade-bootstrap/_bootstrap
 append styles
 	- // Custom styles for this template
@@ -11,15 +18,17 @@ append scripts
 	script(src="//rawgit.com/ssorallen/jquery-scrollstop/master/jquery.scrollstop.js")
 	script(src="//cdnjs.cloudflare.com/ajax/libs/jade/1.11.0/runtime.js")
 	script(src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js")
+	//- auto generated file for generating new image containers
 	script(src="../jade-templates.js")
+	//- additional client-side scripts
 	script(src="../getImages.js")
 	script.
 
 		var imageIndex = 0;
-		//- var imgCount = 30;
 
 		var idsArr = '#{ids}'.split(',');
 
+		// load images 30 at a time
 		var loadImages = function loadImages () {
 			var toLoad = idsArr.slice(imageIndex,imageIndex+30);
 			if (toLoad.length > 0) {
@@ -31,6 +40,7 @@ append scripts
 			}
 		};
 
+		// refresh the page and randomize image order
 		var refresh = function refresh() {
 			location.reload();
 		};
