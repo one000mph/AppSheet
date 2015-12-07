@@ -10,10 +10,10 @@ Access at localhost:8000 OR go to http://appsheet-photo-gallery.herokuapp.com fo
 #### Features
 
 * Randomize image order on page reload
-* Jump back to top with sticky footer
-* Click image to show/hide meta data
-* Images load on scrollstop improving UX and decreasing browser load
-* Images are retrieved by a client-side script, minizing initial load time
+* Jump back to top with link sticky footer
+* Click image to show/hide meta-data
+* Images load on scrollstop, improving UX and decreasing browser load
+* Images are retrieved by a client-side script, minimizing initial load time
 * HTML containers for new images are also dynamically generated and loaded
 * Site is responsive to mobile view
 
